@@ -14,7 +14,6 @@ public class scr_manager : MonoBehaviour
     void Start()
     {
         gameStarted = false;
-        
     }
 
     // Update is called once per frame
@@ -55,6 +54,7 @@ public class scr_manager : MonoBehaviour
         {
             gameStarted = false;
             CancelInvoke();
+            savescore(score);
         }
     }
 
@@ -62,5 +62,19 @@ public class scr_manager : MonoBehaviour
     {
         int index = Random.Range(0, 4);
         Instantiate(prefab[index], transform.position, Quaternion.identity);
+    }
+
+    void savescore(int s)
+    {
+        string tmp = "*";
+        while(PlayerPrefs.GetInt(tmp) > s)
+        {
+            tmp += "*";
+        }
+        if (PlayerPrefs.HasKey(tmp))
+        {
+            PlayerPrefs.SetInt(tmp, s);
+        }
+        PlayerPrefs.Save();
     }
 }
